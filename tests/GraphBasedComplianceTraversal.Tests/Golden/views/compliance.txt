@@ -1,0 +1,38 @@
+Compliance view of requirement:nis2-article-21-supply-chain
+
+requirement:nis2-article-21-supply-chain
+  → satisfied-by → control-adoption:ca-artifact-supply-chain [satisfies, inverse]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-08-08-001 [produces, forward]
+
+requirement:nis2-article-21-supply-chain
+  → satisfied-by → control-adoption:ca-artifact-supply-chain [satisfies, inverse]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-08-07-001 [produces, forward]
+
+requirement:nis2-article-21-supply-chain
+  → satisfied-by → control-adoption:ca-artifact-supply-chain [satisfies, inverse]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-08-06-001 [produces, forward]
+
+requirement:nis2-article-21-supply-chain
+  → satisfied-by → control-adoption:ca-artifact-supply-chain [satisfies, inverse]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-08-05-001 [produces, forward]
+
+requirement:nis2-article-21-supply-chain
+  → satisfied-by → control-adoption:ca-artifact-supply-chain [satisfies, inverse]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-07-15-001 [produces, forward]
+
+Current observation state:
+  observation:obs-2026-08-08-001 pass
+  observation:obs-2026-08-07-001 pass
+  observation:obs-2026-08-06-001 fail
+  observation:obs-2026-08-05-001 stale (recorded pass, validator provenance-prober@3.1.6)
+  observation:obs-2026-07-15-001 stale (recorded pass, validator provenance-prober@3.1.5)

@@ -1,0 +1,12 @@
+artifact:customer-agent-2.8.4
+  → produced-by → build-pipeline:customer-agent-release [produced-by, forward]
+  → source → repository:customer-agent [source, forward]
+  → has-commits → commit:7a94f3e8b2c1d5f6a7b8c9d0e1f2a3b4c5d6e7f8 [committed-to, inverse]
+
+artifact:customer-agent-2.8.4
+  → produced-by → build-run:84125 [produced-by, forward]
+  → built-from → commit:7a94f3e8b2c1d5f6a7b8c9d0e1f2a3b4c5d6e7f8 [built-from, forward]
+  → committed-to → repository:customer-agent [committed-to, forward]
+
+artifact:customer-agent-2.8.4
+  → distributed-via → aws:cloudfront:customer-downloads [distributed-via, forward]

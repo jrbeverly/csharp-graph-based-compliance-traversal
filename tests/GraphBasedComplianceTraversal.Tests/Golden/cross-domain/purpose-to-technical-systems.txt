@@ -1,0 +1,15 @@
+business-purpose:secure-endpoint-management
+  → fulfilled-by → product:customer-agent [fulfills, inverse]
+  → has-capability → capability:software-update-delivery [has-capability, forward]
+  → implemented-by → service:release-distribution [implemented-by, forward]
+  → depends-on → aws:cloudfront:customer-downloads [depends-on, forward]
+
+business-purpose:secure-endpoint-management
+  → fulfilled-by → product:customer-agent [fulfills, inverse]
+  → has-capability → capability:software-update-delivery [has-capability, forward]
+  → implemented-by → service:release-distribution [implemented-by, forward]
+  → depends-on → aws:s3:prod-release-artifacts [depends-on, forward]
+
+Unresolved references:
+  has-capability → capability:endpoint-telemetry-collection (from product:customer-agent)
+  has-capability → capability:policy-enforcement (from product:customer-agent)

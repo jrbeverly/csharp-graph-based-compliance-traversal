@@ -1,0 +1,5 @@
+aws:s3:prod-release-artifacts
+  → used-by → service:release-distribution [depends-on, inverse]
+  → implements → capability:software-update-delivery [implemented-by, inverse]
+  → belongs-to → product:customer-agent [has-capability, inverse]
+  → fulfills → business-purpose:secure-endpoint-management [fulfills, forward]

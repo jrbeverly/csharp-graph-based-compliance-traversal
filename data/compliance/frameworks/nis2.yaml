@@ -1,0 +1,17 @@
+id: framework:nis2
+
+type: RegulatoryFramework
+
+name: NIS2 Directive
+
+description: >
+  Directive (EU) 2022/2555 on measures for a high common level of
+  cybersecurity across the Union. Applicable to NexusDefend as a provider
+  of managed security services to EU-based essential and important entities.
+
+jurisdiction: EU
+
+applicable_from: 2024-10-18
+
+requirements:
+  - requirement:nis2-article-21-supply-chain

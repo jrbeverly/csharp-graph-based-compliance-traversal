@@ -1,0 +1,58 @@
+{
+  "$description": "Mock response from AWS CloudFront GetDistributionConfig API call for distribution E1ABCDEFGHIJKL (customer-downloads). Represents the configuration that a future AWS connector would ingest and normalize into a graph entity.",
+  "DistributionConfig": {
+    "CallerReference": "terraform-20260315000000000000000001",
+    "Aliases": {
+      "Quantity": 1,
+      "Items": [
+        "downloads.nexusdefend.com"
+      ]
+    },
+    "DefaultRootObject": "",
+    "Origins": {
+      "Quantity": 1,
+      "Items": [
+        {
+          "Id": "S3-prod-release-artifacts",
+          "DomainName": "prod-release-artifacts.s3.us-east-1.amazonaws.com",
+          "OriginPath": "/releases",
+          "S3OriginConfig": {
+            "OriginAccessIdentity": "origin-access-identity/cloudfront/E1ABCDEFGHIJKL"
+          }
+        }
+      ]
+    },
+    "DefaultCacheBehavior": {
+      "TargetOriginId": "S3-prod-release-artifacts",
+      "ViewerProtocolPolicy": "redirect-to-https",
+      "AllowedMethods": {
+        "Quantity": 2,
+        "Items": ["GET", "HEAD"]
+      },
+      "CachedMethods": {
+        "Quantity": 2,
+        "Items": ["GET", "HEAD"]
+      },
+      "ForwardedValues": {
+        "QueryString": false,
+        "Cookies": {
+          "Forward": "none"
+        }
+      },
+      "MinTTL": 0,
+      "DefaultTTL": 3600,
+      "MaxTTL": 86400
+    },
+    "Enabled": true,
+    "Comment": "Production CloudFront distribution for Customer Agent downloads",
+    "PriceClass": "PriceClass_All",
+    "ViewerCertificate": {
+      "ACMCertificateArn": "arn:aws:acm:us-east-1:123456789012:certificate/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      "SSLSupportMethod": "sni-only",
+      "MinimumProtocolVersion": "TLSv1.2_2021"
+    },
+    "HttpVersion": "http2",
+    "IsIPV6Enabled": true
+  },
+  "ETag": "E2ABCDEFGHIJKL"
+}

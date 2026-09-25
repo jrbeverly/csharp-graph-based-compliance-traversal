@@ -1,0 +1,86 @@
+{
+  "$description": "Mock Terraform state fragment for the S3 bucket resource. Represents the declared infrastructure state that a future Terraform connector would ingest and compare against observed AWS API state.",
+  "module": "modules/release-storage",
+  "resources": [
+    {
+      "type": "aws_s3_bucket",
+      "name": "artifacts",
+      "provider": "registry.terraform.io/hashicorp/aws",
+      "instances": [
+        {
+          "attributes": {
+            "id": "prod-release-artifacts",
+            "arn": "arn:aws:s3:::prod-release-artifacts",
+            "bucket": "prod-release-artifacts",
+            "bucket_prefix": null,
+            "force_destroy": false,
+            "tags": {
+              "Environment": "production",
+              "Service": "release-distribution",
+              "ManagedBy": "terraform"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "aws_s3_bucket_versioning",
+      "name": "artifacts_versioning",
+      "provider": "registry.terraform.io/hashicorp/aws",
+      "instances": [
+        {
+          "attributes": {
+            "id": "prod-release-artifacts",
+            "bucket": "prod-release-artifacts",
+            "versioning_configuration": [
+              {
+                "status": "Enabled"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "aws_s3_bucket_server_side_encryption_configuration",
+      "name": "artifacts_encryption",
+      "provider": "registry.terraform.io/hashicorp/aws",
+      "instances": [
+        {
+          "attributes": {
+            "id": "prod-release-artifacts",
+            "bucket": "prod-release-artifacts",
+            "rule": [
+              {
+                "apply_server_side_encryption_by_default": [
+                  {
+                    "sse_algorithm": "aws:kms",
+                    "kms_master_key_id": "arn:aws:kms:us-east-1:123456789012:key/abcdef12-3456-7890-abcd-ef1234567890"
+                  }
+                ],
+                "bucket_key_enabled": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "artifacts_public_access_block",
+      "provider": "registry.terraform.io/hashicorp/aws",
+      "instances": [
+        {
+          "attributes": {
+            "id": "prod-release-artifacts",
+            "bucket": "prod-release-artifacts",
+            "block_public_acls": true,
+            "block_public_policy": true,
+            "ignore_public_acls": true,
+            "restrict_public_buckets": true
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$description": "Mock response from GitHub API GET /repos/nexusdefend/customer-agent. Represents source repository metadata that a future GitHub connector would ingest.",
+  "id": 123456789,
+  "node_id": "R_kgDOABCDEFG",
+  "name": "customer-agent",
+  "full_name": "nexusdefend/customer-agent",
+  "private": true,
+  "owner": {
+    "login": "nexusdefend",
+    "type": "Organization"
+  },
+  "html_url": "https://github.com/nexusdefend/customer-agent",
+  "description": "Customer Agent — enterprise endpoint security agent",
+  "default_branch": "main",
+  "created_at": "2024-01-15T10:00:00Z",
+  "updated_at": "2026-08-08T12:00:00Z",
+  "language": "Rust",
+  "archived": false,
+  "topics": ["security-agent", "endpoint", "enterprise"],
+  "visibility": "private"
+}

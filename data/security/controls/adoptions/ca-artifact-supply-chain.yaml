@@ -1,0 +1,37 @@
+id: control-adoption:ca-artifact-supply-chain
+
+type: ControlAdoption
+
+name: Adoption of ARR-3-11 Secure Software Artifact Supply Chain
+
+description: >
+  NexusDefend adopts ARR-3-11 version 4.2 for the production Customer Agent
+  build and release pipeline. The adoption covers artifact signing, provenance
+  generation, immutable storage, and distribution integrity validation.
+
+control:
+  specification: ARR-3-11
+  version: "4.2"
+
+scope:
+  - build-pipeline:customer-agent-release
+  - artifact:customer-agent-2.8.4
+  - aws:s3:prod-release-artifacts
+  - aws:cloudfront:customer-downloads
+
+addresses:
+  - risk:artifact-tampering
+
+implemented_by:
+  - implementation:signed-release-pipeline
+
+satisfies:
+  - requirement:nis2-article-21-supply-chain
+
+owner: role:platform-security
+
+approver: role:CTO
+
+adopted_at: 2026-03-15
+
+deviations: []

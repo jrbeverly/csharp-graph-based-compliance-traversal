@@ -1,0 +1,87 @@
+# Observation history for assertion:prod-artifact-provenance
+#
+# These represent automated evaluation results produced by the
+# artifact-provenance-prober validator. Observations are generated
+# as a side effect of operational validation, not manually collected.
+
+observations:
+  - id: observation:obs-2026-08-08-001
+    assertion: assertion:prod-artifact-provenance
+    subject:
+      artifact: artifact:customer-agent-2.8.4
+      digest: sha256:abc123def4567890abcdef1234567890abcdef1234567890abcdef12345678
+    result: pass
+    observed_at: "2026-08-08T14:01:22Z"
+    validator_version: provenance-prober@3.1.7
+    details: >
+      Artifact signature verified against trusted identity
+      github-actions-bot@nexusdefend. Provenance attestation links to
+      commit 7a94f3e in customer-agent repository. Rekor transparency
+      log entry confirmed.
+
+  - id: observation:obs-2026-08-07-001
+    assertion: assertion:prod-artifact-provenance
+    subject:
+      artifact: artifact:customer-agent-2.8.3
+      digest: sha256:def456abc7890123def456abc7890123def456abc7890123def456abc78901
+    result: pass
+    observed_at: "2026-08-07T09:15:44Z"
+    validator_version: provenance-prober@3.1.7
+    details: >
+      All provenance checks passed for routine release 2.8.3.
+
+  - id: observation:obs-2026-08-06-001
+    assertion: assertion:prod-artifact-provenance
+    subject:
+      artifact: artifact:customer-agent-2.8.4-unsigned
+      digest: sha256:badbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbad
+    result: fail
+    observed_at: "2026-08-06T23:42:11Z"
+    validator_version: provenance-prober@3.1.7
+    details: >
+      FAILURE: Artifact submitted without valid provenance attestation.
+      No Sigstore signature found. Build identity could not be verified.
+      Artifact blocked from distribution.
+
+      Root cause: A developer attempted to manually upload a locally-built
+      artifact to the production S3 bucket for testing purposes. The
+      artifact lacked a CI-produced provenance attestation. The validation
+      gate correctly identified the violation and prevented distribution.
+
+      Related incident: INC-2026-041 was opened to review the attempted
+      manual upload and reinforce the approved release process.
+    related_incident: INC-2026-041
+
+  - id: observation:obs-2026-08-05-001
+    assertion: assertion:prod-artifact-provenance
+    subject:
+      artifact: artifact:customer-agent-2.8.2
+      digest: sha256:ccc111ddd222eee333fff444ggg555hhh666iii777jjj888kkk999lll000
+    result: pass
+    observed_at: "2026-08-05T11:30:05Z"
+    validator_version: provenance-prober@3.1.6
+    details: >
+      All provenance checks passed for release 2.8.2.
+
+  - id: observation:obs-2026-07-15-001
+    assertion: assertion:prod-artifact-provenance
+    subject:
+      artifact: artifact:customer-agent-2.8.1
+      digest: sha256:eee444fff555ggg666hhh777iii888jjj999kkk000lll111mmm222nnn333
+    result: pass
+    observed_at: "2026-07-15T08:00:00Z"
+    validator_version: provenance-prober@3.1.5
+    details: >
+      All provenance checks passed for release 2.8.1.
+
+# IMPERFECTION ALERT — Stale observation:
+# observation:obs-2026-07-15-001 was produced by validator version 3.1.5.
+# The current validator version is 3.1.7. A future implementation could
+# flag this as a stale observation or require re-validation with the
+# current validator.
+
+# IMPERFECTION ALERT — Failed observation:
+# observation:obs-2026-08-06-001 is a FAIL. This demonstrates that the
+# assertion engine can detect and block violations. The control worked
+# correctly (the gate blocked distribution), but the observation result
+# is still FAIL because the artifact did not have valid provenance.

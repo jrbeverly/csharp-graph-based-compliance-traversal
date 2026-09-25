@@ -1,0 +1,31 @@
+id: assertion:prod-artifact-provenance
+
+type: Assertion
+
+name: Production artifact provenance validation
+
+statement: >
+  Every production artifact published to the release distribution service
+  must have valid, approved provenance including a verifiable signature,
+  a trusted build identity, and a traceable source commit.
+
+subject:
+  class: production_artifact
+
+predicate:
+  valid_provenance: true
+
+validator:
+  type: automated
+  implementation: artifact-provenance-prober
+
+evaluation:
+  trigger: artifact_published
+  frequency: continuous
+
+failure:
+  severity: critical
+
+supports:
+  - control-adoption:ca-artifact-supply-chain
+  - implementation:signed-release-pipeline

@@ -1,0 +1,21 @@
+id: service:release-distribution
+
+type: Service
+
+name: Release Distribution Service
+
+description: >
+  Serves signed Customer Agent release artifacts to customer endpoints via
+  CloudFront CDN. Artifacts are stored in an S3 origin bucket and must pass
+  provenance validation before being made available for distribution.
+
+implements:
+  - capability:software-update-delivery
+
+owned_by: team:platform-engineering
+
+classification: production
+
+depends_on:
+  - aws:cloudfront:customer-downloads
+  - aws:s3:prod-release-artifacts

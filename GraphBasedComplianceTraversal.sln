@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphBasedComplianceTraversal.Engine", "src/GraphBasedComplianceTraversal.Engine/GraphBasedComplianceTraversal.Engine.csproj", "{A041DBD6-BE78-4307-AB31-85C1BC5CA77D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphBasedComplianceTraversal.Cli", "src/GraphBasedComplianceTraversal.Cli/GraphBasedComplianceTraversal.Cli.csproj", "{B5624A70-FB3F-498D-AE8D-0DAB82A9EF02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphBasedComplianceTraversal.Tests", "tests/GraphBasedComplianceTraversal.Tests/GraphBasedComplianceTraversal.Tests.csproj", "{CD207568-50CF-4311-BA2C-933435F2351C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A041DBD6-BE78-4307-AB31-85C1BC5CA77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A041DBD6-BE78-4307-AB31-85C1BC5CA77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A041DBD6-BE78-4307-AB31-85C1BC5CA77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A041DBD6-BE78-4307-AB31-85C1BC5CA77D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5624A70-FB3F-498D-AE8D-0DAB82A9EF02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5624A70-FB3F-498D-AE8D-0DAB82A9EF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5624A70-FB3F-498D-AE8D-0DAB82A9EF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5624A70-FB3F-498D-AE8D-0DAB82A9EF02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD207568-50CF-4311-BA2C-933435F2351C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD207568-50CF-4311-BA2C-933435F2351C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD207568-50CF-4311-BA2C-933435F2351C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD207568-50CF-4311-BA2C-933435F2351C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

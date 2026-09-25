@@ -1,0 +1,25 @@
+id: assumption:customer-endpoints-managed
+
+type: Assumption
+
+statement: >
+  Customer endpoints are normally administered by organizational IT
+  departments and are not directly exposed to arbitrary internet traffic.
+
+rationale: >
+  The severity of the artifact compromise business impact depends on the
+  assumption that compromised endpoints are enterprise-managed devices
+  with access to internal corporate networks. If customers routinely
+  install the agent on unmanaged or internet-exposed devices, the risk
+  profile changes.
+
+supports:
+  - risk:artifact-tampering
+  - impact:artifact-compromise
+
+status: active
+
+last_reviewed: 2026-05-15
+
+# IMPERFECTION: last_reviewed is over a year old if current date is after 2027-05-15.
+# As of the fixture creation date (2026-08), this is still within 90 days.

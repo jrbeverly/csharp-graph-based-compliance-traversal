@@ -1,0 +1,47 @@
+id: exception:emergency-deployment-path
+
+type: ControlException
+
+name: Emergency manual deployment bypass
+
+description: >
+  Temporary exception allowing a documented emergency deployment procedure
+  that bypasses the standard CI-based release pipeline for critical
+  security patches that must ship outside the normal release cadence.
+
+control_adoption:
+  - control-adoption:ca-artifact-supply-chain
+
+control_requirement:
+  - ARR-3-11.1  # Approved Build Identity
+  - ARR-3-11.2  # Cryptographic Artifact Signing (partial)
+
+reason: >
+  The emergency deployment path is required for out-of-band critical
+  security patches (e.g., zero-day vulnerability fixes) that cannot
+  wait for the full CI pipeline. The path still requires manual signing
+  by a member of the platform-security team and post-deployment
+  provenance reconciliation.
+
+scope:
+  - service:release-distribution
+  - aws:s3:prod-release-artifacts
+
+compensating_controls:
+  - Two-person approval from platform-security team
+  - Mandatory incident ticket reference
+  - Post-deployment provenance reconciliation within 24 hours
+  - Elevated audit logging during emergency deployment
+
+owner: role:platform-security
+
+approved_by: role:CTO
+
+approved_at: 2026-06-01
+
+# IMPERFECTION: This exception expires soon (2026-09-01), which is less
+# than 30 days from the fixture's representative "current" date of
+# 2026-08-08. A future validation could flag this as expiring-imminently.
+expires: 2026-09-01
+
+review_required: true

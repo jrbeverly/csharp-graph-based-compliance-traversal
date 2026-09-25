@@ -1,0 +1,18 @@
+id: business-purpose:secure-endpoint-management
+
+type: BusinessPurpose
+
+name: Secure enterprise endpoint management
+
+description: >
+  Provide organizations with a trusted software agent that continuously
+  monitors, hardens, and reports on the security posture of managed endpoints
+  across their enterprise estate. The agent is distributed as signed software
+  updates delivered through a controlled release pipeline.
+
+fulfilled_by:
+  - product:customer-agent
+
+customer_segment: enterprise-it-security
+
+revenue_dependency: primary

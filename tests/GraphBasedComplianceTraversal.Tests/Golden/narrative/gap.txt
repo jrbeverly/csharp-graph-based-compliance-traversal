@@ -1,0 +1,8 @@
+Supply Chain Assurance: requirement:nis2-article-21-supply-chain
+
+The chain breaks at the required step 'satisfied-by': requirement:nis2-article-21-supply-chain has no stored 'satisfied-by' edge reaching any ControlAdoption node.
+The supply chain assurance path from requirement:nis2-article-21-supply-chain does not exist: no conclusion is drawn, and nothing is inferred from the absence of a path.
+
+Supporting facts:
+  [node] requirement:nis2-article-21-supply-chain is a RegulatoryRequirement node
+    source: unknown

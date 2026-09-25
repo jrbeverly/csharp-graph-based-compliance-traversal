@@ -1,0 +1,18 @@
+id: repository:customer-agent
+
+type: SourceRepository
+
+name: customer-agent
+
+description: >
+  Primary source repository for the Customer Agent software. Contains
+  application code, build definitions, and the release pipeline configuration.
+
+url: https://github.com/nexusdefend/customer-agent
+
+owner: team:platform-engineering
+
+language: rust
+
+builds:
+  - build-pipeline:customer-agent-release

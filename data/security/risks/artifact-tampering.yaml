@@ -1,0 +1,31 @@
+id: risk:artifact-tampering
+
+type: Risk
+
+name: Unauthorized modification of release artifacts
+
+description: >
+  An attacker gains the ability to modify a Customer Agent release artifact
+  after it has been built by the approved pipeline but before it reaches
+  customer endpoints. This could occur through compromise of the S3 origin
+  bucket, the CloudFront distribution, or the artifact publication process.
+
+generic_risk: ARR-RISK-044
+
+category: software-supply-chain
+
+inherent_likelihood: low
+inherent_impact: critical
+
+affects:
+  - product:customer-agent
+
+results_in:
+  - impact:artifact-compromise
+
+mitigated_by:
+  - control-adoption:ca-artifact-supply-chain
+
+# IMPERFECTION: Generic risk reference ARR-RISK-044 does not exist locally.
+# This represents a future integration point — the organization references
+# a shared risk library that has not yet been ingested.

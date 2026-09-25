@@ -1,0 +1,92 @@
+Supply Chain Assurance: "NIS2 Article 21 — Supply Chain Security" (requirement:nis2-article-21-supply-chain)
+
+"NIS2 Article 21 — Supply Chain Security" (requirement:nis2-article-21-supply-chain) is satisfied by "Adoption of ARR-3-11 Secure Software Artifact Supply Chain" (control-adoption:ca-artifact-supply-chain).
+"Adoption of ARR-3-11 Secure Software Artifact Supply Chain" (control-adoption:ca-artifact-supply-chain) is implemented by "Signed Release Pipeline" (implementation:signed-release-pipeline).
+"Signed Release Pipeline" (implementation:signed-release-pipeline) is validated by "Production artifact provenance validation" (assertion:prod-artifact-provenance).
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-08-08-001, recorded pass at 2026-08-08T14:01:22Z by validator provenance-prober@3.1.7.
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-08-07-001, recorded pass at 2026-08-07T09:15:44Z by validator provenance-prober@3.1.7.
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-08-06-001, recorded fail at 2026-08-06T23:42:11Z by validator provenance-prober@3.1.7.
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-08-05-001, recorded pass at 2026-08-05T11:30:05Z by validator provenance-prober@3.1.6. The store currently surfaces stale (recorded pass).
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-07-15-001, recorded pass at 2026-07-15T08:00:00Z by validator provenance-prober@3.1.5. The store currently surfaces stale (recorded pass).
+The supply chain assurance path from "NIS2 Article 21 — Supply Chain Security" (requirement:nis2-article-21-supply-chain) is established: 5 validated paths, 8 distinct steps, every hop a stored typed edge of the shared graph.
+
+Supporting facts:
+  [edge] satisfied-by: requirement:nis2-article-21-supply-chain → control-adoption:ca-artifact-supply-chain
+    source: declaration data/security/controls/adoptions/ca-artifact-supply-chain.yaml
+    source: declaration data/compliance/requirements/nis2-article-21-supply-chain.yaml
+  [node] requirement:nis2-article-21-supply-chain is a RegulatoryRequirement node
+    source: declaration data/compliance/requirements/nis2-article-21-supply-chain.yaml
+  [node] control-adoption:ca-artifact-supply-chain is a ControlAdoption node
+    source: declaration data/security/controls/adoptions/ca-artifact-supply-chain.yaml
+  [property] requirement:nis2-article-21-supply-chain/name = "NIS2 Article 21 — Supply Chain Security"
+    source: declaration data/compliance/requirements/nis2-article-21-supply-chain.yaml
+  [property] control-adoption:ca-artifact-supply-chain/name = "Adoption of ARR-3-11 Secure Software Artifact Supply Chain"
+    source: declaration data/security/controls/adoptions/ca-artifact-supply-chain.yaml
+  [edge] implemented-by: control-adoption:ca-artifact-supply-chain → implementation:signed-release-pipeline
+    source: declaration data/security/controls/adoptions/ca-artifact-supply-chain.yaml
+    source: declaration data/security/controls/implementations/signed-release-pipeline.yaml
+  [node] implementation:signed-release-pipeline is a ControlImplementation node
+    source: declaration data/security/controls/implementations/signed-release-pipeline.yaml
+  [property] implementation:signed-release-pipeline/name = "Signed Release Pipeline"
+    source: declaration data/security/controls/implementations/signed-release-pipeline.yaml
+  [edge] validated-by: implementation:signed-release-pipeline → assertion:prod-artifact-provenance
+    source: declaration data/security/assertions/prod-artifact-provenance.yaml
+    source: declaration data/security/controls/implementations/signed-release-pipeline.yaml
+  [node] assertion:prod-artifact-provenance is an Assertion node
+    source: declaration data/security/assertions/prod-artifact-provenance.yaml
+  [property] assertion:prod-artifact-provenance/name = "Production artifact provenance validation"
+    source: declaration data/security/assertions/prod-artifact-provenance.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-08-08-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-08-08-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-08-001/result = "pass"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-08-001/observed_at = "2026-08-08T14:01:22Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-08-001/validator_version = "provenance-prober@3.1.7"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-08-07-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-08-07-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-07-001/result = "pass"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-07-001/observed_at = "2026-08-07T09:15:44Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-07-001/validator_version = "provenance-prober@3.1.7"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-08-06-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-08-06-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-06-001/result = "fail"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-06-001/observed_at = "2026-08-06T23:42:11Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-06-001/validator_version = "provenance-prober@3.1.7"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-08-05-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-08-05-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-05-001/result = "pass"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-05-001/observed_at = "2026-08-05T11:30:05Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-05-001/validator_version = "provenance-prober@3.1.6"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [state] observation:obs-2026-08-05-001: the store surfaces stale
+    source: declaration data/security/observations/provenance-observations.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-07-15-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-07-15-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-07-15-001/result = "pass"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-07-15-001/observed_at = "2026-07-15T08:00:00Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-07-15-001/validator_version = "provenance-prober@3.1.5"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [state] observation:obs-2026-07-15-001: the store surfaces stale
+    source: declaration data/security/observations/provenance-observations.yaml

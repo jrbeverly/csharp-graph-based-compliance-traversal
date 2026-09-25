@@ -1,0 +1,7 @@
+Architecture view of service:release-distribution
+
+service:release-distribution
+  → depends-on → aws:cloudfront:customer-downloads [depends-on, forward]
+  → distributes → artifact:customer-agent-2.8.4 [distributed-via, inverse]
+  → produced-by → build-pipeline:customer-agent-release [produced-by, forward]
+  → source → repository:customer-agent [source, forward]

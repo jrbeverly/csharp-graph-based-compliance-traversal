@@ -1,0 +1,4 @@
+{
+  "id": "fixture:known-good",
+  "$description": "A valid fixture so this world fails at the broken record, not the fixtures directory."
+}

@@ -1,0 +1,41 @@
+id: aws:s3:prod-release-artifacts
+
+type: S3Bucket
+
+name: prod-release-artifacts
+
+description: >
+  Production S3 bucket storing signed Customer Agent release artifacts.
+  Serves as the origin for the customer-downloads CloudFront distribution.
+  Bucket is configured with versioning, server-side encryption using KMS,
+  and block-public-access enabled.
+
+aws_account: "123456789012"
+arn: arn:aws:s3:::prod-release-artifacts
+region: us-east-1
+
+contains:
+  - artifact:customer-agent-2.8.4
+
+used_by:
+  - service:release-distribution
+
+served_by:
+  - aws:cloudfront:customer-downloads
+
+created_by:
+  - terraform:modules/release-storage
+
+observed_by:
+  - fixtures/aws/s3/get-bucket-policy-response.json
+  - fixtures/aws/s3/get-bucket-encryption-response.json
+
+classification: production
+
+encryption:
+  algorithm: aws:kms
+  key_arn: arn:aws:kms:us-east-1:123456789012:key/abcdef12-3456-7890-abcd-ef1234567890
+  bucket_key_enabled: true
+
+public_access_block: true
+versioning: enabled

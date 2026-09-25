@@ -1,0 +1,16 @@
+id: capability:software-update-delivery
+
+type: ProductCapability
+
+name: Software Update Delivery
+
+description: >
+  The ability to securely deliver signed software updates to customer-managed
+  endpoints. Updates are distributed through a CDN-backed release pipeline
+  with cryptographic provenance validation at every stage.
+
+belongs_to:
+  - product:customer-agent
+
+implemented_by:
+  - service:release-distribution

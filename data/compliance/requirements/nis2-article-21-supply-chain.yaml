@@ -1,0 +1,33 @@
+id: requirement:nis2-article-21-supply-chain
+
+type: RegulatoryRequirement
+
+name: NIS2 Article 21 — Supply Chain Security
+
+description: >
+  Article 21(2)(d) requires entities to address "supply chain security,
+  including security-related aspects concerning the relationships between
+  each entity and its direct suppliers or service providers."
+
+framework:
+  - framework:nis2
+
+article: "21"
+paragraph: "2"
+subparagraph: d
+
+applicability:
+  status: applicable
+  rationale: >
+    NexusDefend distributes executable software into customer-managed
+    enterprise environments and depends on AWS for infrastructure services.
+    Both the downstream distribution chain and the upstream cloud supply
+    chain fall within the scope of this requirement.
+
+satisfied_by:
+  - control-adoption:ca-artifact-supply-chain
+
+# IMPERFECTION: The requirement references only one control adoption,
+# but supply chain security also depends on the AWS supplier relationship.
+# A future validation could flag the missing mapping to supplier:aws
+# supplier risk assessment.

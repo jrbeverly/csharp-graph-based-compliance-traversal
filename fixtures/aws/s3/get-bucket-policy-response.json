@@ -1,0 +1,34 @@
+{
+  "$description": "Mock response from AWS S3 GetBucketPolicy API call for bucket prod-release-artifacts. Used by a future AWS connector to determine access control configuration.",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowCloudFrontReadAccess",
+        "Effect": "Allow",
+        "Principal": {
+          "CanonicalUser": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E1ABCDEFGHIJKL"
+        },
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": "arn:aws:s3:::prod-release-artifacts/*"
+      },
+      {
+        "Sid": "DenyPublicAccess",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject",
+          "s3:PutObject"
+        ],
+        "Resource": "arn:aws:s3:::prod-release-artifacts/*",
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  }
+}

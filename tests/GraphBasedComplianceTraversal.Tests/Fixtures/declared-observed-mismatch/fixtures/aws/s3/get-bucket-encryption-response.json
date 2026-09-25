@@ -1,0 +1,13 @@
+{
+  "$description": "Mock response from AWS S3 GetBucketEncryption API call for bucket prod-release-artifacts. Deliberately mismatched against the declared record: the organization declares KMS server-side encryption, while this response observes AES256.",
+  "ServerSideEncryptionConfiguration": {
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "AES256"
+        },
+        "BucketKeyEnabled": false
+      }
+    ]
+  }
+}

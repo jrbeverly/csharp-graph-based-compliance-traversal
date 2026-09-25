@@ -1,0 +1,34 @@
+id: supplier:aws
+
+type: Supplier
+
+name: Amazon Web Services
+
+description: >
+  Cloud infrastructure provider hosting the production release distribution
+  infrastructure. Provides CloudFront CDN, S3 object storage, KMS key
+  management, and IAM identity services.
+
+services_used:
+  - cloudfront
+  - s3
+  - kms
+  - iam
+
+criticality: critical
+
+depends_on_supplier:
+  - service:release-distribution
+
+last_risk_assessment: 2026-06-01
+
+external_assurance:
+  - type: SOC2
+    report: SOC2-Type2-2026.pdf
+    valid_until: 2027-03-31
+  - type: ISO27001
+    certificate: ISO27001-2026.pdf
+    valid_until: 2027-06-30
+
+# IMPERFECTION: last_risk_assessment is more than 60 days old
+# A future validation could flag this as stale.

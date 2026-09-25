@@ -1,0 +1,258 @@
+Graph-based compliance traversal — end-to-end demonstration
+Reference timestamp: 2026-08-12T09:00:00.0000000+00:00 (fixed — the fixture world's reference date, never the clock)
+
+1. Facts loaded (RepositoryDataLoader)
+   21 declared records under data/
+   8 mocked external responses under fixtures/
+
+2. Mocked observations normalized (FixtureAdapterRegistry.MockWorld)
+   8 normalized nodes and 6 normalized edges from 8 adapters
+
+3. Typed connected graph (TypedPropertyGraph)
+   27 nodes and 45 typed edges
+   6 unresolved references and 29 unmodeled references retained, never dropped
+   10 declared-versus-observed reconciliations recorded, of which 2 conflicting
+
+4. Canonical path 1 of 3 — business ↔ infrastructure
+
+Resource to purpose (why the resource exists):
+aws:s3:prod-release-artifacts
+  → used-by → service:release-distribution [depends-on, inverse]
+  → implements → capability:software-update-delivery [implemented-by, inverse]
+  → belongs-to → product:customer-agent [has-capability, inverse]
+  → fulfills → business-purpose:secure-endpoint-management [fulfills, forward]
+
+Purpose to technical systems (the reverse, gaps reported):
+business-purpose:secure-endpoint-management
+  → fulfilled-by → product:customer-agent [fulfills, inverse]
+  → has-capability → capability:software-update-delivery [has-capability, forward]
+  → implemented-by → service:release-distribution [implemented-by, forward]
+  → depends-on → aws:cloudfront:customer-downloads [depends-on, forward]
+
+business-purpose:secure-endpoint-management
+  → fulfilled-by → product:customer-agent [fulfills, inverse]
+  → has-capability → capability:software-update-delivery [has-capability, forward]
+  → implemented-by → service:release-distribution [implemented-by, forward]
+  → depends-on → aws:s3:prod-release-artifacts [depends-on, forward]
+
+Unresolved references:
+  has-capability → capability:endpoint-telemetry-collection (from product:customer-agent)
+  has-capability → capability:policy-enforcement (from product:customer-agent)
+
+5. Canonical path 2 of 3 — infrastructure → source and provenance
+
+Declared build chain:
+artifact:customer-agent-2.8.4
+  → produced-by → build-pipeline:customer-agent-release [produced-by, forward]
+  → source → repository:customer-agent [source, forward]
+  → has-commits → commit:7a94f3e8b2c1d5f6a7b8c9d0e1f2a3b4c5d6e7f8 [committed-to, inverse]
+
+Attested derivation (the provenance attestation's chain):
+artifact:customer-agent-2.8.4
+  → produced-by → build-run:84125 [produced-by, forward]
+  → built-from → commit:7a94f3e8b2c1d5f6a7b8c9d0e1f2a3b4c5d6e7f8 [built-from, forward]
+  → committed-to → repository:customer-agent [committed-to, forward]
+
+Distribution:
+artifact:customer-agent-2.8.4
+  → distributed-via → aws:cloudfront:customer-downloads [distributed-via, forward]
+
+6. Canonical path 3 of 3 — risk → control and observations
+
+risk:artifact-tampering
+  → results-in → impact:artifact-compromise [results-in, forward]
+  → informs → control-adoption:ca-artifact-supply-chain [informs, forward]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-08-08-001 [produces, forward]
+
+risk:artifact-tampering
+  → results-in → impact:artifact-compromise [results-in, forward]
+  → informs → control-adoption:ca-artifact-supply-chain [informs, forward]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-08-07-001 [produces, forward]
+
+risk:artifact-tampering
+  → results-in → impact:artifact-compromise [results-in, forward]
+  → informs → control-adoption:ca-artifact-supply-chain [informs, forward]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-08-06-001 [produces, forward]
+
+risk:artifact-tampering
+  → results-in → impact:artifact-compromise [results-in, forward]
+  → informs → control-adoption:ca-artifact-supply-chain [informs, forward]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-08-05-001 [produces, forward]
+
+risk:artifact-tampering
+  → results-in → impact:artifact-compromise [results-in, forward]
+  → informs → control-adoption:ca-artifact-supply-chain [informs, forward]
+  → implemented-by → implementation:signed-release-pipeline [implemented-by, forward]
+  → validated-by → assertion:prod-artifact-provenance [validates, inverse]
+  → produces → observation:obs-2026-07-15-001 [produces, forward]
+
+7. Assertion evaluation (AssertionRegistry.Slice, evaluated at 2026-08-12T09:00:00.0000000+00:00)
+   assertion:prod-artifact-provenance / artifact:customer-agent-2.8.4 → PASS — The artifact declares a complete signing statement: method, build identity, and transparency log.
+   assertion:production-resource-owner / aws:cloudfront:customer-downloads → UNKNOWN — The resource declares no owner fact, so its ownership is unchecked.
+   assertion:production-resource-owner / aws:s3:prod-release-artifacts → UNKNOWN — The resource declares no owner fact, so its ownership is unchecked.
+   assertion:adopted-control-implementation / control-adoption:ca-artifact-supply-chain → PASS — The adoption declares 'implementation:signed-release-pipeline', which has a record.
+
+8. Observation store — current state per assertion
+   assertion:prod-artifact-provenance
+      observation:obs-2026-07-15-001 → stale (recorded pass 2026-07-15T08:00:00.0000000+00:00 by provenance-prober@3.1.5)
+      observation:obs-2026-08-05-001 → stale (recorded pass 2026-08-05T11:30:05.0000000+00:00 by provenance-prober@3.1.6)
+      observation:obs-2026-08-06-001 → fail (recorded fail 2026-08-06T23:42:11.0000000+00:00 by provenance-prober@3.1.7; incident INC-2026-041)
+      observation:obs-2026-08-07-001 → pass (recorded pass 2026-08-07T09:15:44.0000000+00:00 by provenance-prober@3.1.7)
+      observation:obs-2026-08-08-001 → pass (recorded pass 2026-08-08T14:01:22.0000000+00:00 by provenance-prober@3.1.7)
+   assertion:production-resource-owner
+      (no recorded history)
+   assertion:adopted-control-implementation
+      (no recorded history)
+
+9. Organizational linter findings
+Organizational linter — reference 2026-08-12T09:00:00.0000000+00:00, 45 findings
+UNKNOWN     production-resource-owner       aws:cloudfront:customer-downloads                               declares no owner fact, and a production resource must have an owner
+UNKNOWN     production-resource-owner       aws:s3:prod-release-artifacts                                   declares no owner fact, and a production resource must have an owner
+UNKNOWN     unresolved-reference            capability:endpoint-telemetry-collection                        referenced by 'product:customer-agent' through the 'has-capability' edge, but no record exists for it
+UNKNOWN     unresolved-reference            capability:policy-enforcement                                   referenced by 'product:customer-agent' through the 'has-capability' edge, but no record exists for it
+UNKNOWN     unresolved-reference            artifact:customer-agent-2.8.3                                   referenced by 'observation:obs-2026-08-07-001' through the 'observes' edge, but no record exists for it
+UNKNOWN     unresolved-reference            artifact:customer-agent-2.8.4-unsigned                          referenced by 'observation:obs-2026-08-06-001' through the 'observes' edge, but no record exists for it
+UNKNOWN     unresolved-reference            artifact:customer-agent-2.8.2                                   referenced by 'observation:obs-2026-08-05-001' through the 'observes' edge, but no record exists for it
+UNKNOWN     unresolved-reference            artifact:customer-agent-2.8.1                                   referenced by 'observation:obs-2026-07-15-001' through the 'observes' edge, but no record exists for it
+UNKNOWN     unmodeled-reference             terraform:modules/release-distribution                          referenced by 'aws:cloudfront:customer-downloads' through field 'declared_by' — References 'terraform:modules/release-distribution'; Terraform modules are not node types in this slice.
+UNKNOWN     unmodeled-reference             fixtures/aws/cloudfront/get-distribution-config-response.json   referenced by 'aws:cloudfront:customer-downloads' through field 'observed_by' — References fixture documents under fixtures/aws/cloudfront/; fixture documents are not node types in this slice.
+UNKNOWN     unmodeled-reference             terraform:modules/release-storage                               referenced by 'aws:s3:prod-release-artifacts' through field 'created_by' — References 'terraform:modules/release-storage'; Terraform modules are not node types in this slice.
+UNKNOWN     unmodeled-reference             fixtures/aws/s3/get-bucket-policy-response.json                 referenced by 'aws:s3:prod-release-artifacts' through field 'observed_by' — References fixture documents under fixtures/aws/s3/; fixture documents are not node types in this slice.
+UNKNOWN     unmodeled-reference             fixtures/aws/s3/get-bucket-encryption-response.json             referenced by 'aws:s3:prod-release-artifacts' through field 'observed_by' — References fixture documents under fixtures/aws/s3/; fixture documents are not node types in this slice.
+UNKNOWN     unmodeled-reference             role:platform-security                                          referenced by 'control-adoption:ca-artifact-supply-chain' through field 'owner' — References 'role:platform-security'; roles are not node types in this slice.
+UNKNOWN     unmodeled-reference             role:CTO                                                        referenced by 'control-adoption:ca-artifact-supply-chain' through field 'approver' — References 'role:CTO'; roles are not node types in this slice.
+UNKNOWN     unmodeled-reference             role:platform-security                                          referenced by 'exception:emergency-deployment-path' through field 'owner' — References 'role:platform-security'; roles are not node types in this slice.
+UNKNOWN     unmodeled-reference             role:CTO                                                        referenced by 'exception:emergency-deployment-path' through field 'approved_by' — References 'role:CTO'; roles are not node types in this slice.
+UNKNOWN     unmodeled-reference             ARR-3-11.1                                                      referenced by 'exception:emergency-deployment-path' through field 'control_requirement' — References ARR-3-11 clauses ('ARR-3-11.1', 'ARR-3-11.2'); clauses inside a control definition are below node granularity in this slice.
+UNKNOWN     unmodeled-reference             ARR-3-11.2                                                      referenced by 'exception:emergency-deployment-path' through field 'control_requirement' — References ARR-3-11 clauses ('ARR-3-11.1', 'ARR-3-11.2'); clauses inside a control definition are below node granularity in this slice.
+UNKNOWN     unmodeled-reference             Two-person approval from platform-security team                 referenced by 'exception:emergency-deployment-path' through field 'compensating_controls' — Free-text mitigation items, not node references.
+UNKNOWN     unmodeled-reference             Mandatory incident ticket reference                             referenced by 'exception:emergency-deployment-path' through field 'compensating_controls' — Free-text mitigation items, not node references.
+UNKNOWN     unmodeled-reference             Post-deployment provenance reconciliation within 24 hours       referenced by 'exception:emergency-deployment-path' through field 'compensating_controls' — Free-text mitigation items, not node references.
+UNKNOWN     unmodeled-reference             Elevated audit logging during emergency deployment              referenced by 'exception:emergency-deployment-path' through field 'compensating_controls' — Free-text mitigation items, not node references.
+UNKNOWN     unmodeled-reference             ARR-3-11.1                                                      referenced by 'implementation:signed-release-pipeline' through field 'mechanisms.covers' — References ARR-3-11 clauses; same clause-level granularity as 'control_requirement'.
+UNKNOWN     unmodeled-reference             ARR-3-11.2                                                      referenced by 'implementation:signed-release-pipeline' through field 'mechanisms.covers' — References ARR-3-11 clauses; same clause-level granularity as 'control_requirement'.
+UNKNOWN     unmodeled-reference             ARR-3-11.3                                                      referenced by 'implementation:signed-release-pipeline' through field 'mechanisms.covers' — References ARR-3-11 clauses; same clause-level granularity as 'control_requirement'.
+UNKNOWN     unmodeled-reference             ARR-3-11.4                                                      referenced by 'implementation:signed-release-pipeline' through field 'mechanisms.covers' — References ARR-3-11 clauses; same clause-level granularity as 'control_requirement'.
+UNKNOWN     unmodeled-reference             ARR-3-11.5                                                      referenced by 'implementation:signed-release-pipeline' through field 'mechanisms.covers' — References ARR-3-11 clauses; same clause-level granularity as 'control_requirement'.
+UNKNOWN     unmodeled-reference             ARR-3-11.6                                                      referenced by 'implementation:signed-release-pipeline' through field 'mechanisms.covers' — References ARR-3-11 clauses; same clause-level granularity as 'control_requirement'.
+UNKNOWN     unmodeled-reference             team:platform-engineering                                       referenced by 'repository:customer-agent' through field 'owner' — References 'team:platform-engineering'; teams are not node types in this slice.
+UNKNOWN     unmodeled-reference             ARR-RISK-044                                                    referenced by 'risk:artifact-tampering' through field 'generic_risk' — References 'ARR-RISK-044' from a shared risk library that is not part of this slice (documented imperfection #6 in data/README.md).
+UNKNOWN     unmodeled-reference             team:platform-engineering                                       referenced by 'service:release-distribution' through field 'owned_by' — References 'team:platform-engineering'; teams are not node types in this slice.
+UNKNOWN     unmodeled-reference             cloudfront                                                      referenced by 'supplier:aws' through field 'services_used' — Plain service names ('cloudfront', 's3', ...), not node references.
+UNKNOWN     unmodeled-reference             s3                                                              referenced by 'supplier:aws' through field 'services_used' — Plain service names ('cloudfront', 's3', ...), not node references.
+UNKNOWN     unmodeled-reference             kms                                                             referenced by 'supplier:aws' through field 'services_used' — Plain service names ('cloudfront', 's3', ...), not node references.
+UNKNOWN     unmodeled-reference             iam                                                             referenced by 'supplier:aws' through field 'services_used' — Plain service names ('cloudfront', 's3', ...), not node references.
+UNKNOWN     unmodeled-reference             INC-2026-041                                                    referenced by 'observation:obs-2026-08-06-001' through field 'related_incident' — References 'INC-2026-041'; incidents are not node types in this slice.
+EXCEPTION   exception-expiry                exception:emergency-deployment-path                             expires on 2026-09-01, within 30 days of the reference date
+STALE       supplier-assessment-freshness   supplier:aws                                                    last_risk_assessment 2026-06-01 is 72 days before the reference date (allowed: 60)
+UNKNOWN     requirement-supplier-mapping    requirement:nis2-article-21-supply-chain                        its satisfaction chain reaches supplier:aws, but the requirement declares no mapping to that supplier
+CONFLICTING declared-observed-reconciliationrepository:customer-agent                                       property 'description': declared "Primary source repository for the Customer Agent software. Contains application code, build definitions, and the release pipeline configuration.\n" differs from observed "Customer Agent \u2014 enterprise endpoint security agent" (Organization claim, LeftWins precedence)
+CONFLICTING declared-observed-reconciliationrepository:customer-agent                                       property 'owner': declared "team:platform-engineering" differs from observed "nexusdefend" (Organization claim, LeftWins precedence)
+FAIL        observation-result              artifact:customer-agent-2.8.4-unsigned                          observation observation:obs-2026-08-06-001 recorded FAIL against assertion:prod-artifact-provenance; related incident INC-2026-041
+STALE       observation-validator-staleness artifact:customer-agent-2.8.1                                   observation observation:obs-2026-07-15-001 was produced by provenance-prober@3.1.5, behind the assertion's current validator provenance-prober@3.1.7
+STALE       observation-validator-staleness artifact:customer-agent-2.8.2                                   observation observation:obs-2026-08-05-001 was produced by provenance-prober@3.1.6, behind the assertion's current validator provenance-prober@3.1.7
+
+10. Compiled supply-chain narrative
+
+Supply Chain Assurance: "NIS2 Article 21 — Supply Chain Security" (requirement:nis2-article-21-supply-chain)
+
+"NIS2 Article 21 — Supply Chain Security" (requirement:nis2-article-21-supply-chain) is satisfied by "Adoption of ARR-3-11 Secure Software Artifact Supply Chain" (control-adoption:ca-artifact-supply-chain).
+"Adoption of ARR-3-11 Secure Software Artifact Supply Chain" (control-adoption:ca-artifact-supply-chain) is implemented by "Signed Release Pipeline" (implementation:signed-release-pipeline).
+"Signed Release Pipeline" (implementation:signed-release-pipeline) is validated by "Production artifact provenance validation" (assertion:prod-artifact-provenance).
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-08-08-001, recorded pass at 2026-08-08T14:01:22Z by validator provenance-prober@3.1.7.
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-08-07-001, recorded pass at 2026-08-07T09:15:44Z by validator provenance-prober@3.1.7.
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-08-06-001, recorded fail at 2026-08-06T23:42:11Z by validator provenance-prober@3.1.7.
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-08-05-001, recorded pass at 2026-08-05T11:30:05Z by validator provenance-prober@3.1.6. The store currently surfaces stale (recorded pass).
+"Production artifact provenance validation" (assertion:prod-artifact-provenance) produces observation:obs-2026-07-15-001, recorded pass at 2026-07-15T08:00:00Z by validator provenance-prober@3.1.5. The store currently surfaces stale (recorded pass).
+The supply chain assurance path from "NIS2 Article 21 — Supply Chain Security" (requirement:nis2-article-21-supply-chain) is established: 5 validated paths, 8 distinct steps, every hop a stored typed edge of the shared graph.
+
+Supporting facts:
+  [edge] satisfied-by: requirement:nis2-article-21-supply-chain → control-adoption:ca-artifact-supply-chain
+    source: declaration data/security/controls/adoptions/ca-artifact-supply-chain.yaml
+    source: declaration data/compliance/requirements/nis2-article-21-supply-chain.yaml
+  [node] requirement:nis2-article-21-supply-chain is a RegulatoryRequirement node
+    source: declaration data/compliance/requirements/nis2-article-21-supply-chain.yaml
+  [node] control-adoption:ca-artifact-supply-chain is a ControlAdoption node
+    source: declaration data/security/controls/adoptions/ca-artifact-supply-chain.yaml
+  [property] requirement:nis2-article-21-supply-chain/name = "NIS2 Article 21 — Supply Chain Security"
+    source: declaration data/compliance/requirements/nis2-article-21-supply-chain.yaml
+  [property] control-adoption:ca-artifact-supply-chain/name = "Adoption of ARR-3-11 Secure Software Artifact Supply Chain"
+    source: declaration data/security/controls/adoptions/ca-artifact-supply-chain.yaml
+  [edge] implemented-by: control-adoption:ca-artifact-supply-chain → implementation:signed-release-pipeline
+    source: declaration data/security/controls/adoptions/ca-artifact-supply-chain.yaml
+    source: declaration data/security/controls/implementations/signed-release-pipeline.yaml
+  [node] implementation:signed-release-pipeline is a ControlImplementation node
+    source: declaration data/security/controls/implementations/signed-release-pipeline.yaml
+  [property] implementation:signed-release-pipeline/name = "Signed Release Pipeline"
+    source: declaration data/security/controls/implementations/signed-release-pipeline.yaml
+  [edge] validated-by: implementation:signed-release-pipeline → assertion:prod-artifact-provenance
+    source: declaration data/security/assertions/prod-artifact-provenance.yaml
+    source: declaration data/security/controls/implementations/signed-release-pipeline.yaml
+  [node] assertion:prod-artifact-provenance is an Assertion node
+    source: declaration data/security/assertions/prod-artifact-provenance.yaml
+  [property] assertion:prod-artifact-provenance/name = "Production artifact provenance validation"
+    source: declaration data/security/assertions/prod-artifact-provenance.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-08-08-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-08-08-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-08-001/result = "pass"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-08-001/observed_at = "2026-08-08T14:01:22Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-08-001/validator_version = "provenance-prober@3.1.7"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-08-07-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-08-07-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-07-001/result = "pass"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-07-001/observed_at = "2026-08-07T09:15:44Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-07-001/validator_version = "provenance-prober@3.1.7"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-08-06-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-08-06-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-06-001/result = "fail"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-06-001/observed_at = "2026-08-06T23:42:11Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-06-001/validator_version = "provenance-prober@3.1.7"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-08-05-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-08-05-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-05-001/result = "pass"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-05-001/observed_at = "2026-08-05T11:30:05Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-08-05-001/validator_version = "provenance-prober@3.1.6"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [state] observation:obs-2026-08-05-001: the store surfaces stale
+    source: declaration data/security/observations/provenance-observations.yaml
+  [edge] produces: assertion:prod-artifact-provenance → observation:obs-2026-07-15-001
+    source: declaration data/security/observations/provenance-observations.yaml
+  [node] observation:obs-2026-07-15-001 is an Observation node
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-07-15-001/result = "pass"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-07-15-001/observed_at = "2026-07-15T08:00:00Z"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [property] observation:obs-2026-07-15-001/validator_version = "provenance-prober@3.1.5"
+    source: declaration data/security/observations/provenance-observations.yaml
+  [state] observation:obs-2026-07-15-001: the store surfaces stale
+    source: declaration data/security/observations/provenance-observations.yaml
+
+Demonstration complete — 3 canonical paths (11 explained traversals), 4 assertion evaluations, 45 linter findings, 1 compiled narrative, all offline and deterministic.

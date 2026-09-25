@@ -1,0 +1,26 @@
+{
+  "$description": "Mock response from GitHub API GET /repos/nexusdefend/customer-agent/commits/7a94f3e. The source commit for Customer Agent release 2.8.4.",
+  "sha": "7a94f3e8b2c1d5f6a7b8c9d0e1f2a3b4c5d6e7f8",
+  "node_id": "C_kwDOABCDEFG",
+  "commit": {
+    "author": {
+      "name": "Platform CI Bot",
+      "email": "ci-bot@nexusdefend.com",
+      "date": "2026-08-08T13:45:00Z"
+    },
+    "committer": {
+      "name": "Platform CI Bot",
+      "email": "ci-bot@nexusdefend.com",
+      "date": "2026-08-08T13:45:00Z"
+    },
+    "message": "feat: prepare release 2.8.4 with updated signing config\n\nRelease notes:\n- Updated Sigstore signing identity configuration\n- Bumped dependency versions\n- Security fix for CVE-2026-12345",
+    "tree": {
+      "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0"
+    }
+  },
+  "parents": [
+    {
+      "sha": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b"
+    }
+  ]
+}

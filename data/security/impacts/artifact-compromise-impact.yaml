@@ -1,0 +1,33 @@
+id: impact:artifact-compromise
+
+type: BusinessImpact
+
+name: Compromise of customer-distributed software
+
+summary: >
+  A compromised production release of the Customer Agent could result in
+  unauthorized code executing within customer-managed enterprise environments.
+
+detailed_analysis: >
+  NexusDefend distributes executable software directly into customer-managed
+  enterprise environments. A compromised release artifact would bypass
+  customer perimeter defenses because the Customer Agent runs with elevated
+  privileges for endpoint management. The blast radius of a single compromised
+  release could span hundreds of enterprise customers and tens of thousands
+  of endpoints. Impact dimensions include:
+
+  - Customer harm: unauthorized code execution within customer networks
+  - Contractual exposure: breach of customer agreements and SLAs
+  - Incident response costs: emergency revocation and redeployment
+  - Reputational damage: loss of trust in the security vendor itself
+  - Regulatory notification: potential breach notification obligations
+    across multiple jurisdictions
+
+results_from:
+  - risk:artifact-tampering
+
+informs:
+  - control-adoption:ca-artifact-supply-chain
+  - assumption:customer-endpoints-managed
+
+severity: critical

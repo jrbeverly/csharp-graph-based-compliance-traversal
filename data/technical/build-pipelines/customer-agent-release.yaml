@@ -1,0 +1,24 @@
+id: build-pipeline:customer-agent-release
+
+type: BuildPipeline
+
+name: Customer Agent Release Pipeline
+
+description: >
+  GitHub Actions workflow that builds, signs, and publishes Customer Agent
+  release artifacts. Requires an approved build identity, produces Sigstore
+  provenance attestations, and uploads artifacts to the production S3 bucket.
+
+platform: github-actions
+
+workflow: .github/workflows/release.yml
+
+source:
+  - repository:customer-agent
+
+produces:
+  - artifact:customer-agent-2.8.4
+
+build_identity: github-actions-bot@nexusdefend
+
+status: active

@@ -1,0 +1,44 @@
+{
+  "$description": "Mock Sigstore provenance attestation for Customer Agent 2.8.4. Represents a signed attestation that a future provenance connector would verify and normalize into graph relationships linking artifact → build run → source commit → repository.",
+  "payloadType": "application/vnd.in-toto+json",
+  "payload": {
+    "_type": "https://in-toto.io/Statement/v1",
+    "subject": [
+      {
+        "name": "customer-agent",
+        "digest": {
+          "sha256": "abc123def4567890abcdef1234567890abcdef1234567890abcdef12345678"
+        }
+      }
+    ],
+    "predicateType": "https://slsa.dev/provenance/v1",
+    "predicate": {
+      "buildDefinition": {
+        "buildType": "https://github.com/actions/runner@v1",
+        "externalParameters": {
+          "workflow": {
+            "ref": "refs/heads/main",
+            "repository": "https://github.com/nexusdefend/customer-agent",
+            "path": ".github/workflows/release.yml"
+          }
+        },
+        "internalParameters": {}
+      },
+      "runDetails": {
+        "builder": {
+          "id": "https://github.com/nexusdefend/customer-agent/.github/workflows/release.yml@refs/heads/main"
+        },
+        "metadata": {
+          "invocationId": "https://github.com/nexusdefend/customer-agent/actions/runs/84125/attempts/1"
+        }
+      }
+    }
+  },
+  "signatures": [
+    {
+      "keyid": "",
+      "sig": "MEUCIQDfakebase64signaturestringforillustrationpurposesMEUCIQD",
+      "certificate": "-----BEGIN CERTIFICATE-----\nMIIDfakecertificatestringforillustrationpurposes\n-----END CERTIFICATE-----"
+    }
+  ]
+}

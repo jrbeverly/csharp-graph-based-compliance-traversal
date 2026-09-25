@@ -1,0 +1,16 @@
+Graph-based compliance traversal
+
+Usage:
+  compliance-traversal [--help]
+  compliance-traversal demo
+
+Commands:
+  demo          Run the end-to-end demonstration: load the repository's
+                declared facts and mocked external responses, build the
+                typed graph, traverse the three canonical paths, evaluate
+                the assertions, lint the structure, and compile the
+                explainable supply-chain narrative. Offline and
+                deterministic; see docs/demo.md.
+
+Options:
+  -h, --help    Show this help text.

@@ -1,0 +1,2 @@
+id: record:known-good
+$description: A valid record so this world fails at the broken fixture, not the records directory.

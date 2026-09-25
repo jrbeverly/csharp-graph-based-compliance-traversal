@@ -1,0 +1,30 @@
+id: artifact:customer-agent-2.8.4
+
+type: Artifact
+
+name: customer-agent@2.8.4
+
+description: >
+  Signed production release artifact for Customer Agent version 2.8.4.
+  Built by the approved release pipeline, cryptographically signed via
+  Sigstore, and stored in the production S3 origin bucket.
+
+digest: sha256:abc123def4567890abcdef1234567890abcdef1234567890abcdef12345678
+
+version: 2.8.4
+
+classification: production-release
+
+built_by:
+  - build-pipeline:customer-agent-release
+
+stored_in:
+  - aws:s3:prod-release-artifacts
+
+distributed_via:
+  - aws:cloudfront:customer-downloads
+
+signing:
+  method: sigstore
+  identity: github-actions-bot@nexusdefend
+  transparency_log: https://rekor.sigstore.dev

@@ -1,0 +1,21 @@
+id: product:customer-agent
+
+type: Product
+
+name: Customer Agent
+
+description: >
+  A lightweight software agent installed on enterprise-managed endpoints.
+  The agent collects security telemetry, enforces endpoint policy, and
+  receives signed software updates from the NexusDefend release distribution
+  infrastructure.
+
+fulfills:
+  - business-purpose:secure-endpoint-management
+
+capabilities:
+  - capability:software-update-delivery
+  - capability:endpoint-telemetry-collection
+  - capability:policy-enforcement
+
+status: active

@@ -1,0 +1,30 @@
+id: aws:cloudfront:customer-downloads
+
+type: CloudFrontDistribution
+
+name: customer-downloads
+
+description: >
+  CloudFront distribution serving Customer Agent release artifacts to
+  enterprise endpoints globally. Origin is the production S3 bucket
+  containing signed release artifacts.
+
+aws_account: "123456789012"
+arn: arn:aws:cloudfront::123456789012:distribution/E1ABCDEFGHIJKL
+
+origins:
+  - aws:s3:prod-release-artifacts
+
+status: Deployed
+
+serves:
+  - service:release-distribution
+
+declared_by:
+  - terraform:modules/release-distribution
+
+observed_by:
+  - fixtures/aws/cloudfront/get-distribution-config-response.json
+
+classification: production
+encryption: ACM-certificate

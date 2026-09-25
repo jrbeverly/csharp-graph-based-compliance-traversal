@@ -1,0 +1,58 @@
+id: implementation:signed-release-pipeline
+
+type: ControlImplementation
+
+name: Signed Release Pipeline
+
+description: >
+  Implementation of the ARR-3-11 artifact supply chain controls through
+  a GitHub Actions release pipeline with Sigstore-based artifact signing,
+  provenance attestation generation, and automated integrity validation
+  before CloudFront distribution.
+
+implements:
+  - control-adoption:ca-artifact-supply-chain
+
+mechanisms:
+  - id: approved-builder
+    description: >
+      Only the GitHub Actions bot identity for the nexusdefend/customer-agent
+      repository is authorized to produce production artifacts.
+    covers: ARR-3-11.1
+
+  - id: sigstore-signing
+    description: >
+      Every production artifact is signed using Sigstore keyless signing
+      with the GitHub Actions OIDC identity. Signatures are recorded in
+      the public Rekor transparency log.
+    covers: ARR-3-11.2
+
+  - id: provenance-attestation
+    description: >
+      A Sigstore provenance attestation is generated for every build,
+      linking the artifact digest to the source commit, build workflow,
+      and build parameters.
+    covers: ARR-3-11.3
+
+  - id: immutable-s3-storage
+    description: >
+      Production artifacts are stored in the prod-release-artifacts S3
+      bucket with versioning enabled, block-public-access enforced, and
+      KMS server-side encryption.
+    covers: ARR-3-11.4
+
+  - id: distribution-validation
+    description: >
+      Before a new artifact is served via CloudFront, its provenance
+      attestation is independently validated. Artifacts failing
+      validation are blocked from distribution.
+    covers: ARR-3-11.5
+
+  - id: pipeline-as-code
+    description: >
+      The release pipeline is defined in .github/workflows/release.yml
+      within the customer-agent repository and is subject to code review.
+    covers: ARR-3-11.6
+
+validated_by:
+  - assertion:prod-artifact-provenance

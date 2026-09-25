@@ -1,0 +1,54 @@
+id: control-def:ARR-3-11
+
+type: ControlDefinition
+
+name: Secure Software Artifact Supply Chain
+
+version: "4.2"
+
+specification: ARR-3-11
+
+description: >
+  External control specification defining requirements for securing the
+  software artifact supply chain. Covers build integrity, artifact signing,
+  provenance generation, storage immutability, and distribution controls.
+
+source: fictional-third-party-standard
+
+status: published
+
+requirements:
+  - id: ARR-3-11.1
+    title: Approved Build Identity
+    text: >
+      Production artifacts SHALL be produced by an approved, uniquely
+      identifiable build identity.
+  - id: ARR-3-11.2
+    title: Cryptographic Artifact Signing
+    text: >
+      Every production artifact SHALL be cryptographically signed using an
+      organization-approved signing method before publication.
+  - id: ARR-3-11.3
+    title: Provenance Generation
+    text: >
+      Every production artifact SHALL be accompanied by a verifiable
+      provenance attestation linking the artifact to its source commit,
+      build identity, and build parameters.
+  - id: ARR-3-11.4
+    title: Immutable Artifact Storage
+    text: >
+      Published production artifacts SHALL be stored in immutable,
+      access-controlled storage with versioning and integrity protection.
+  - id: ARR-3-11.5
+    title: Distribution Integrity Validation
+    text: >
+      Artifact integrity and provenance SHALL be validated before
+      distribution to external consumers.
+  - id: ARR-3-11.6
+    title: Build Parameter Reproducibility
+    text: >
+      Build processes SHALL be defined as code and SHALL be reproducible
+      from source.
+
+adopted_by:
+  - control-adoption:ca-artifact-supply-chain
